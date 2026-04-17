@@ -1,82 +1,60 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <title>SummerAlway的主页</title>
-</head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    a{
-       text-decoration:none;
-    }
-
-    body {
-        background: linear-gradient(to bottom, #ffffff, #b0c4de);
-        min-height: 100vh;
-        text-align: center;
-        padding: 40px 20px;
-        font-family: "Microsoft Yahei", sans-serif;
-    }
-
-    .nav {
-            background: #5a88c8;
-            padding: 15px 0;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 只修复排版 + 美观按钮 */
+        .btn-group {
+            text-align: center;
+            margin: 20px 0;
         }
-
-    h1 {
-        color: #2c3e50;
-        margin-bottom: 30px;
-        font-size: 28px;
-    }
-
-    img {
-        max-width: 90%;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        margin-bottom: 35px;
-    }
-
-    button {
-        padding: 12px 28px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        background-color: #5a88c8;
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin: 5px; /* 两个按钮之间留一点空隙 */
-    }
-
-    button:hover {
-        background-color: #406cad;
-        transform: translateY(-2px);
-        box-shadow: 0 3px 10px rgba(90,136,200,0.3);
-    }
-</style>
+        button {
+            padding: 11px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #5a88c8;
+            color: white;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+        button:hover {
+            background: #4570b0;
+        }
+        img {
+            display: block;
+            margin: 0 auto 25px;
+            max-width: 90%;
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
     <div class="nav">
-        <button class="btn" onclick="window.open('student.html')">优秀学生展示</button>
+        <a href="student.html">
+            <button type="button">神秘小网站</button>
+        </a>
     </div>
 
-    <h1>SummerAlway的主页</h1>
+    <h1>这里貌似什么都没有...</h1>
 
     <img src="https://cn.bing.com/th?id=OHR.VanGoghFields_ZH-CN3495668941_UHD.jpg&pid=hp&w=1920">
     
-    <a href="https://cn.bing.com/th?id=OHR.VanGoghFields_ZH-CN3495668941_UHD.jpg" target="_blank">
-        <button type="button">点此跳转下载</button>
-    </a>
+    <!-- 按钮统一排版 -->
+    <div class="btn-group">
+        <button onclick="window.open('https://cn.bing.com/th?id=OHR.VanGoghFields_ZH-CN3495668941_UHD.jpg','_blank')">
+            点此跳转下载
+        </button>
 
-    <a href="https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click" target="_blank">
-        <button type="button">另外的美图</button>
-    </a>
+        <button onclick="window.open('https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click','_blank')">
+            另外的美图
+        </button>
+    </div>
 
 </body>
 </html>

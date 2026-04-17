@@ -1,0 +1,79 @@
+/* 全局重置：清除默认边距、统一盒模型，避免浏览器兼容问题 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 链接样式：去除默认下划线，便于后续扩展 */
+a {
+    text-decoration: none;
+}
+
+/* 页面主体样式：渐变背景、全屏高度、居中布局，提升阅读体验 */
+body {
+    background: linear-gradient(to bottom, #ffffff, #b0c4de);
+    min-height: 100vh;
+    text-align: center;
+    padding: 40px 20px;
+    font-family: "Microsoft Yahei", sans-serif;
+    line-height: 1.6; /* 优化文字行高，提升可读性 */
+}
+
+/* 导航栏样式：蓝色背景、圆角、阴影，增强视觉层次感 */
+.nav {
+    background: #5a88c8;
+    padding: 15px 0;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 标题样式：统一居中、配色，保持页面一致性 */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 28px;
+    text-align: center;
+}
+
+/* 按钮组容器：居中布局，给按钮留出合理间距 */
+.btn-group {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 按钮基础样式 + 核心动画：平滑过渡、阴影效果，提升交互感 */
+button {
+    padding: 11px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #5a88c8;
+    color: white;
+    cursor: pointer;
+    margin: 0 8px;
+    transition: all 0.3s ease; /* 所有变化平滑过渡，避免生硬 */
+    box-shadow: 0 4px 10px rgba(90, 136, 200, 0.2); /* 基础阴影，增强立体感 */
+}
+
+/* 按钮悬浮动画：加深背景、轻微放大、强化阴影，反馈明显 */
+button:hover {
+    background: #4570b0;
+    transform: scale(1.06); /* 轻微放大，吸引注意力 */
+    box-shadow: 0 6px 14px rgba(90, 136, 200, 0.3); /* 阴影加深，增强层次感 */
+}
+
+/* 按钮点击动画：轻微缩小，模拟按压效果，提升交互体验 */
+button:active {
+    transform: scale(0.97); /* 按压缩小，反馈点击动作 */
+    box-shadow: 0 2px 6px rgba(90, 136, 200, 0.2); /* 阴影变浅，模拟按压下沉 */
+}
+
+/* 图片样式：居中显示、圆角、自适应，避免拉伸变形 */
+img {
+    display: block;
+    margin: 0 auto 25px;
+    max-width: 90%;
+    border-radius: 12px;
+}
