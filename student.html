@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优秀学生</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg1: #07111f;
+            --bg2: #13233f;
+            --bg3: #220b35;
+            --neon1: #00eaff;
+            --neon2: #ff2bd6;
+            --neon3: #ffe066;
+            --text-light: rgba(255,255,255,0.88);
+            --text-soft: rgba(255,255,255,0.68);
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0,234,255,0.10), transparent 25%),
+                radial-gradient(circle at 80% 30%, rgba(255,43,214,0.10), transparent 28%),
+                linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+            position: relative;
+            padding: 20px 0;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.02) 0px,
+                rgba(255,255,255,0.02) 1px,
+                transparent 2px,
+                transparent 6px
+            );
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 0 8px rgba(255,255,255,0.35);
+            animation: floatUp linear infinite;
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 2;
+            width: min(94vw, 960px);
+            padding: 28px 22px 24px;
+            border-radius: 24px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow:
+                0 0 18px rgba(0,234,255,0.10),
+                0 0 28px rgba(255,43,214,0.08);
+            backdrop-filter: blur(8px);
+            animation: cardFloat 4s ease-in-out infinite;
+        }
+
+        .wrap::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            background: linear-gradient(
+                90deg,
+                rgba(0,234,255,0.28),
+                rgba(255,43,214,0.28),
+                rgba(255,224,102,0.24)
+            );
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.45;
+        }
+
+        .title {
+            position: relative;
+            display: inline-block;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            color: #fff;
+            text-shadow:
+                0 0 8px rgba(255,255,255,0.8),
+                0 0 16px rgba(0,234,255,0.45),
+                0 0 24px rgba(255,43,214,0.30);
+            animation: titlePulse 1.8s infinite alternate;
+        }
+
+        .title::before,
+        .title::after {
+            content: "优秀学生";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .title::before {
+            color: var(--neon1);
+            transform: translate(-2px, 0);
+            clip-path: inset(0 0 52% 0);
+        }
+
+        .title::after {
+            color: var(--neon2);
+            transform: translate(2px, 0);
+            clip-path: inset(52% 0 0 0);
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            margin-bottom: 18px;
+            color: var(--text-light);
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .back-btn,
+        .upload-btn,
+        .reset-btn {
+            border: none;
+            outline: none;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: #07111f;
+            background: linear-gradient(90deg, var(--neon3), #ffed8a);
+            box-shadow: 0 0 14px rgba(255,224,102,0.20);
+            font-weight: 700;
+        }
+
+        .upload-btn {
+            color: #07111f;
+            background: linear-gradient(90deg, var(--neon1), #7af7ff);
+            box-shadow: 0 0 14px rgba(0,234,255,0.20);
+            font-weight: 700;
+        }
+
+        .reset-btn {
+            color: #fff;
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .back-btn:hover,
+        .upload-btn:hover,
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .back-btn:active,
+        .upload-btn:active,
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-tip {
+            width: 100%;
+            color: var(--text-soft);
+            font-size: 13px;
+            margin-top: -4px;
+        }
+
+        .img-stage {
+            position: relative;
+            display: inline-block;
+            perspective: 900px;
+            max-width: 100%;
+        }
+
+        .halo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 70%;
+            height: 70%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.12), rgba(0,234,255,0.10), transparent 70%);
+            filter: blur(18px);
+            animation: haloPulse 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .shock-img {
+            width: min(76vw, 620px);
+            max-height: 62vh;
+            object-fit: cover;
+            border-radius: 22px;
+            border: 2px solid rgba(255,255,255,0.20);
+            box-shadow:
+                0 0 12px rgba(0,234,255,0.28),
+                0 0 24px rgba(255,43,214,0.18);
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease,
+                opacity 0.2s ease;
+            animation: imgBreath 3s ease-in-out infinite;
+            user-select: none;
+            display: block;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .shock-img:hover {
+            box-shadow:
+                0 0 18px rgba(0,234,255,0.42),
+                0 0 34px rgba(255,43,214,0.28);
+            filter: brightness(1.06);
+        }
+
+        .img-stage.changed .shock-img {
+            animation: imgBreath 3s ease-in-out infinite, imgPopIn 0.45s ease;
+        }
+
+        .hint {
+            margin-top: 18px;
+            color: var(--text-soft);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        @keyframes titlePulse {
+            0% {
+                transform: scale(1);
+                text-shadow:
+                    0 0 6px rgba(255,255,255,0.8),
+                    0 0 14px rgba(0,234,255,0.45);
+            }
+            100% {
+                transform: scale(1.03);
+                text-shadow:
+                    0 0 10px rgba(255,255,255,0.9),
+                    0 0 20px rgba(0,234,255,0.55),
+                    0 0 28px rgba(255,43,214,0.35);
+            }
+        }
+
+        @keyframes haloPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.95);
+                opacity: 0.65;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.08);
+                opacity: 0.95;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.95);
+                opacity: 0.65;
+            }
+        }
+
+        @keyframes imgBreath {
+            0% { transform: scale(1) rotate(-0.4deg); }
+            50% { transform: scale(1.02) rotate(0.4deg); }
+            100% { transform: scale(1) rotate(-0.4deg); }
+        }
+
+        @keyframes imgPopIn {
+            0% {
+                opacity: 0.4;
+                transform: scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.55;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wrap {
+                width: 94vw;
+                padding: 20px 14px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .hint,
+            .file-tip {
+                font-size: 12px;
+            }
+
+            .toolbar {
+                gap: 10px;
+            }
+
+            .back-btn,
+            .upload-btn,
+            .reset-btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .shock-img {
+                width: min(86vw, 620px);
+                max-height: 52vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="particles" id="particles"></div>
+
+    <div class="wrap">
+        <h1 class="title">优秀学生</h1>
+
+        <div class="toolbar">
+            <a href="Menu.html" class="back-btn">返回</a>
+            <label class="upload-btn" for="fileInput">上传图片</label>
+            <button class="reset-btn" id="resetBtn" type="button">恢复默认</button>
+            <input id="fileInput" type="file" accept="image/*">
+            <div class="file-tip">支持本地图片预览，不会自动上传到服务器</div>
+        </div>
+
+        <div class="img-stage" id="imgStage">
+            <div class="halo"></div>
+            <img
+                class="shock-img"
+                id="shockImg"
+                src="https://ts2.tc.mm.bing.net/th/id/OIP-C.UoaMPwbbEMsFMr4yw-xCngHaEo?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="荣誉学生"
+            >
+        </div>
+
+    </div>
+
+    <script>
+        const shockImg = document.getElementById("shockImg");
+        const imgStage = document.getElementById("imgStage");
+        const fileInput = document.getElementById("fileInput");
+        const resetBtn = document.getElementById("resetBtn");
+        const particles = document.getElementById("particles");
+
+        const defaultImage = "https://ts2.tc.mm.bing.net/th/id/OIP-C.UoaMPwbbEMsFMr4yw-xCngHaEo?rs=1&pid=ImgDetMain&o=7&rm=3";
+
+        // 轻量粒子
+        function createParticles(count = 12) {
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement("span");
+                p.className = "particle";
+                p.style.left = Math.random() * 100 + "%";
+                p.style.animationDuration = (6 + Math.random() * 6) + "s";
+                p.style.animationDelay = Math.random() * 5 + "s";
+                const size = 2 + Math.random() * 4;
+                p.style.width = size + "px";
+                p.style.height = size + "px";
+                particles.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // 上传图片，本地预览
+        fileInput.addEventListener("change", function () {
+            const file = this.files && this.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("请选择图片文件");
+                this.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                shockImg.src = e.target.result;
+                imgStage.classList.remove("changed");
+                void imgStage.offsetWidth;
+                imgStage.classList.add("changed");
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 恢复默认图片
+        resetBtn.addEventListener("click", function () {
+            shockImg.src = defaultImage;
+            fileInput.value = "";
+            imgStage.classList.remove("changed");
+            void imgStage.offsetWidth;
+            imgStage.classList.add("changed");
+        });
+
+        // 鼠标跟随3D效果
+        imgStage.addEventListener("mousemove", (e) => {
+            const rect = imgStage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateY = ((x - centerX) / centerX) * 6;
+            const rotateX = -((y - centerY) / centerY) * 6;
+
+            shockImg.style.transform = `
+                perspective(900px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                scale(1.02)
+            `;
+        });
+
+        imgStage.addEventListener("mouseleave", () => {
+            shockImg.style.transform = "";
+        });
+    </script>
+</body>
+</html>
