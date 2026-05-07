@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>美照合集相册</title>
+    <style>
+        * {
+            text-align: center;
+            margin: 10px auto;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #999;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .photo {
+            display: none; /* 默认隐藏所有照片 */
+        }
+        .active {
+            display: block; /* 显示当前照片 */
+        }
+    </style>
+</head>
+<body>
+    <h1>美照合集相册</h1>
+
+    <!-- 贺宇祺 照片1 -->
+    <div class="photo active" id="pic1">
+        <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.KuNObv9ACJqs6Dn39P_OfwHaFS?rs=1&pid=ImgDetMain&o=7&rm=3">
+        <h3>贺宇祺美照</h3>
+        <a href="https://ts2.tc.mm.bing.net/th/id/OIP-C.KuNObv9ACJqs6Dn39P_OfwHaFS?rs=1&pid=ImgDetMain&o=7&rm=3" target="_blank">点击下载</a>
+    </div>
+
+    <!-- 贺宇祺 照片2 -->
+    <div class="photo" id="pic2">
+        <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.sc_JYA2iSl4fMjMlgQVgrAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+        <h3>贺宇祺美照</h3>
+        <a href="https://ts2.tc.mm.bing.net/th/id/OIP-C.KuNObv9ACJqs6Dn39P_OfwHaFS?rs=1&pid=ImgDetMain&o=7&rm=3" target="_blank">点击下载</a>
+    </div>
+
+    <!-- 吴国桐 照片1 -->
+    <div class="photo" id="pic3">
+        <img src="图片91.png">
+        <h3>吴国桐美照</h3>
+        <a href="图片91.png" target="_blank">点击下载</a>
+    </div>
+
+    <!-- 吴国桐 照片2 -->
+    <div class="photo" id="pic4">
+        <img src="图片13.png">
+        <h3>吴国桐美照</h3>
+        <a href="图片13.png" target="_blank">点击下载</a>
+    </div>
+
+    <!-- 刘若谷 照片 -->
+    <div class="photo" id="pic5">
+        <img src="lrg.png">
+        <h3>刘若谷美照</h3>
+        <a href="lrg.png" target="_blank">点击下载</a>
+    </div>
+
+    <!-- 控制按钮 -->
+    <button onclick="lastPic()">上一张</button>
+    <button onclick="nextPic()">下一张</button>
+    <button onclick="window.open('https://www.bilibili.com/video/BV1hq4y1s7VH/?spm_id_from=333.337.search-card.all.click')">
+        一次性查看全部美照
+    </button>
+
+    <script>
+        // 当前照片序号
+        let current = 1;
+        const total = 5;
+
+        // 切换显示
+        function showPic(num) {
+            // 隐藏所有
+            document.querySelectorAll('.photo').forEach(item => {
+                item.classList.remove('active');
+            });
+            // 显示对应
+            document.getElementById(`pic${num}`).classList.add('active');
+            current = num;
+        }
+
+        // 上一张
+        function lastPic() {
+            let num = current - 1;
+            if (num < 1) num = total;
+            showPic(num);
+        }
+
+        // 下一张
+        function nextPic() {
+            let num = current + 1;
+            if (num > total) num = 1;
+            showPic(num);
+        }
+
+    </script>
+    <a href="index.html">返回</a>
+</body>
+</html>
